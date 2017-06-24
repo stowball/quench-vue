@@ -1,7 +1,7 @@
 {
   "name": "quench-vue",
-  "version": "1.0.0",
-  "description": "Describe quench-vue here",
+  "version": "0.0.0",
+  "description": "Simple, client-side hydration of pre-rendered Vue.js apps",
   "main": "lib/index.js",
   "module": "es/index.js",
   "files": [
@@ -11,18 +11,16 @@
   ],
   "scripts": {
     "build": "nwb build-web-module",
-    "clean": "nwb clean-module",
-    "test": "nwb test",
-    "test:coverage": "nwb test --coverage",
-    "test:watch": "nwb test --server"
+    "clean": "nwb clean-module"
   },
-  "dependencies": {
-  },
+  "dependencies": {},
   "devDependencies": {
+    "babel-eslint": "^7.2.3",
+    "eslint": "^4.1.0",
     "nwb": "0.18.x"
   },
-  "author": "",
-  "homepage": "",
+  "author": "Matt Stow <matt@mattstow.com>",
+  "homepage": "http://mattstow.com",
   "license": "MIT",
-  "repository": ""
+  "repository": "https://github.com/stowball/quench-vue"
 }

@@ -1,1 +1,2 @@
-export default 'Welcome to quench-vue'
+export createAppData from './createAppData';
+export createAppTemplate from './createAppTemplate';
