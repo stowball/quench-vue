@@ -21,7 +21,7 @@ A complete demo is available here: https://codepen.io/stowball/pen/awwGBB
 npm install quench-vue --save
 ```
 
-### Direct <script> include
+### Direct `<script>` include
 
 ```html
 <script src="https://unpkg.com/quench-vue/umd/quench-vue.min.js"></script>
@@ -265,7 +265,7 @@ var app = new Vue({
 });
 ```
 
-#### For direct <script> include
+#### For direct `<script>` include
 
 ```html
 <script src="https://unpkg.com/vue"></script>
