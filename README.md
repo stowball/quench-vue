@@ -3,11 +3,11 @@
 [![Travis][build-badge]][build]
 [![npm package][npm-badge]][npm]
 
-**Simple, client-side hydration of pre-rendered Vue.js apps**
+**Simple, tiny, client-side hydration of pre-rendered Vue.js apps**
 
 Quench Vue allows server-rendered/static markup to be used as the `data` and `template` for a Vue.js app. It's great for when you can't/don't want to use "real" [server-side rendering](https://vuejs.org/v2/guide/ssr.html).
 
-All of Vue's existing features will work as normal when the app is intialised in the browser.
+All of Vue's existing features will work as normal when the app is initialised in the browser.
 
 ## Demo
 
@@ -297,5 +297,5 @@ Licensed under the MIT license *(see [LICENSE](https://github.com/stowball/quenc
 [build-badge]: https://img.shields.io/travis/stowball/quench-vue/master.png?style=flat-square
 [build]: https://travis-ci.org/stowball/quench-vue
 
-[npm-badge]: https://img.shields.io/npm/v/npm-package.png?style=flat-square
+[npm-badge]: https://img.shields.io/npm/v/quench-vue.png?style=flat-square
 [npm]: https://www.npmjs.org/package/quench-vue
