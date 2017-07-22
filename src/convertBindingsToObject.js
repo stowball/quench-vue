@@ -19,7 +19,7 @@ const convertBindingsToObject = (app) => {
         if (dot) {
           obj[name][index] = obj[name][index] || {};
 
-          obj[name][index][prop.split(' as ')[0]] = binding.textContent;
+          obj[name][index][prop.split(' as ')[0].trim()] = binding.textContent;
         }
         else {
           obj[name][index] = binding.textContent;
