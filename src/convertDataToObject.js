@@ -1,9 +1,7 @@
 const convertDataToObject = (app) => {
-  if (app.dataset.qData) {
-    return JSON.parse(app.dataset.qData);
+  if (app.attributes['q-data']) {
+    return JSON.parse(app.attributes['q-data'].value);
   }
-
-  return;
 }
 
 export default convertDataToObject;

@@ -1,14 +1,14 @@
 import _arrayFrom from './utils/arrayFrom';
 
 const convertBindingsToObject = (app) => {
-  if (app.dataset.qConvertBindings !== 'true') {
+  if (!app.attributes['q-convert-bindings']) {
     return;
   }
 
-  const bindings = app.querySelectorAll('[data-q-binding]');
+  const bindings = app.querySelectorAll('[q-binding]');
 
   return _arrayFrom(bindings).reduce((obj, binding) => {
-    const bindingValue = binding.dataset.qBinding;
+    const bindingValue = binding.attributes['q-binding'].value;
 
     if (bindingValue.indexOf(' as ') > 0) {
       if (bindingValue.indexOf('[') > 0) {

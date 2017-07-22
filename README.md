@@ -33,19 +33,19 @@ npm install quench-vue --save
 
 There are 2 ways of defining and using `data` for the app:
 
-1. With a stringified JSON object in the app container's `data-q-data` attribute; and/or
-2. With an inline `data-q-binding` attribute on an element, when `data-q-convert-bindings="true"` is added to the app container.
+1. With a stringified JSON object in the app container's `q-data` attribute; and/or
+2. With an inline `q-binding` attribute on an element, when `q-convert-bindings` is added to the app container.
 
-Both techniques can be used together or on their own, but the `data-q-data` is preferred as it's faster, simpler and more versatile.
+Both techniques can be used together or on their own, but the `q-data` is preferred as it's faster, simpler and more versatile.
 
 Let's look at some examples:
 
-### Method 1: Defining the `data` with `[data-q-data]`
+### Method 1: Defining the `data` with `[q-data]`
 
 This method allows you to easily specify the `data` for the app, including arrays and objects.
 
 ```html
-<div id="app" data-q-data='
+<div id="app" q-data='
   "title": "Hello, world!",
   "year": 2017,
   "tags": [
@@ -71,70 +71,70 @@ This method allows you to easily specify the `data` for the app, including array
 </div>
 ```
 
-#### Rendering the data with `[data-q-binding]`
+#### Rendering the data with `[q-binding]`
 
-We obviously duplicate the "data" in the markup, and inform Vue which elements are bound to which `data` properties using a `data-q-binding` attribute whose value points to a property name, such as:
+We obviously duplicate the "data" in the markup, and inform Vue which elements are bound to which `data` properties using a `q-binding` attribute whose value points to a property name, such as:
 
 ```html
-<h1 data-q-binding="title">Hello, World!</h1>
-<p data-q-binding="year">2007</p>
+<h1 q-binding="title">Hello, World!</h1>
+<p q-binding="year">2007</p>
 
 <ul>
   <li v-for="tag in tags">
-    <span data-q-binding="tag">js</span>
+    <span q-binding="tag">js</span>
   </li>
-  <!-- <v> -->
+  <!-- <q> -->
   <li>
     <span>library</span>
   </li>
-  <!-- </v> -->
+  <!-- </q> -->
 </ul>
 
 <ul>
   <li v-for="key in author">
-    <span data-q-binding="key">Matt</span>
+    <span q-binding="key">Matt</span>
   </li>
-  <!-- <v> -->
+  <!-- <q> -->
   <li>
     <span>Stow</span>
   </li>
-  <!-- </v> -->
+  <!-- </q> -->
 </ul>
 
 <ul>
   <li v-for="skill in skills">
-    <span data-q-binding="skill.name">JS</span>
-    <span data-q-binding="skill.level">4</span>
+    <span q-binding="skill.name">JS</span>
+    <span q-binding="skill.level">4</span>
   </li>
-  <!-- <v> -->
+  <!-- <q> -->
   <li>
     <span>CSS</span>
     <span>5</span>
   </li>
-  <!-- </v> -->
+  <!-- </q> -->
 </ul>
 ```
 
-For iterating over lists, we also need to use another syntax, `<!-- <v> --> … <!-- </v> -->`, which [we'll describe later](#hiding-elements-from-the-compiler).
+For iterating over lists, we also need to use another syntax, `<!-- <q> --> … <!-- </q> -->`, which [we'll describe later](#hiding-elements-from-the-compiler).
 
-*Note: You only need to output the `v-for` and the `data-q-binding` attributes on the first iteration of the loop.*
+*Note: You only need to output the `v-for` and the `q-binding` attributes on the first iteration of the loop.*
 
-### Method 2: Defining the `data` with inline `[data-q-binding]` bindings
+### Method 2: Defining the `data` with inline `[q-binding]` bindings
 
-When `data-q-convert-bindings="true"` is set on the app's container, we can also use the `[data-q-binding]` attribute to create a `data` variable that is equal to the value of the element's `.textContent`.
+When `q-convert-bindings` is set on the app's container, we can also use the `[q-binding]` attribute to create a `data` variable that is equal to the value of the element's `.textContent`.
 
 *Note:*
-* *Bindings specified in the global `data-q-data` object take precedence over inline bindings.*
-* *Do not nest elements inside a `data-q-binding` element, or you'll have unexpected results.*
+* *Bindings specified in the global `q-data` object take precedence over inline bindings.*
+* *Do not nest elements inside a `q-binding` element, or you'll have unexpected results.*
 
-The following examples all perfectly re-create the global `data-q-data` object from before.
+The following examples all perfectly re-create the global `q-data` object from before.
 
 #### Simple bindings
 
 ```html
-<div id="app" data-q-convert-bindings="true">
-  <h1 data-q-binding="title">Hello, World!</h1>
-  <p data-q-binding="year">2007</p>
+<div id="app" q-convert-bindings>
+  <h1 q-binding="title">Hello, World!</h1>
+  <p q-binding="year">2007</p>
 </div>
 ```
 
@@ -149,15 +149,15 @@ To inline bind with Quench, we need to use another special syntax `itemsSource a
 To replicate the `tags` array from above, we would:
 
 ```html
-<div id="app" data-q-convert-bindings="true">
+<div id="app" q-convert-bindings>
   <li v-for="tag in tags">
-    <span data-q-binding="tags[0] as tag">js</span>
+    <span q-binding="tags[0] as tag">js</span>
   </li>
-  <!-- <v> -->
+  <!-- <q> -->
   <li>
-    <span data-q-binding="tags[1] as tag">library</span>
+    <span q-binding="tags[1] as tag">library</span>
   </li>
-  <!-- </v> -->
+  <!-- </q> -->
 </div>
 ```
 
@@ -168,15 +168,15 @@ where `itemsSource` is the name of the array (`tags`) plus the index in the arra
 To replicate the `author` object from above, we would:
 
 ```html
-<div id="app" data-q-convert-bindings="true">
+<div id="app" q-convert-bindings>
   <li v-for="key in author">
-    <span data-q-binding="author.firstName as key">Matt</span>
+    <span q-binding="author.firstName as key">Matt</span>
   </li>
-  <!-- <v> -->
+  <!-- <q> -->
   <li>
-    <span data-q-binding="author.lastName as key">Stow</span>
+    <span q-binding="author.lastName as key">Stow</span>
   </li>
-  <!-- </v> -->
+  <!-- </q> -->
 </div>
 ```
 
@@ -187,38 +187,38 @@ where `itemsSource` is the name of the object (`author`) plus the relevant objec
 Both of the above techniques can be combined, so to replicate the `skills` array from above, we would:
 
 ```html
-<div id="app" data-q-convert-bindings="true">
+<div id="app" q-convert-bindings>
   <li v-for="skill in skills">
-    <span data-q-binding="skills[0].name as skill.name">JS</span>
-    <span data-q-binding="skills[0].level as skill.level">4</span>
+    <span q-binding="skills[0].name as skill.name">JS</span>
+    <span q-binding="skills[0].level as skill.level">4</span>
   </li>
-  <!-- <v> -->
+  <!-- <q> -->
   <li>
-    <span data-q-binding="skills[1].name as skill.name">CSS</span>
-    <span data-q-binding="skills[1].level as skill.level">5</span>
+    <span q-binding="skills[1].name as skill.name">CSS</span>
+    <span q-binding="skills[1].level as skill.level">5</span>
   </li>
-  <!-- </v> -->
+  <!-- </q> -->
 </div>
 ```
 
 where `itemsSource` is the name of the array and index (`skills[0]`) plus the relevant object key `.name`/`.level` which we wish to populate, and `skill.name`/`skill.level` is the `item` alias in the `v-for` plus the object key.
 
-Hopefully you'll agree that using inline bindings to set the `data` is more complicated than using the `data-q-data` method, but it can still have its uses.
+Hopefully you'll agree that using inline bindings to set the `data` is more complicated than using the `q-data` method, but it can still have its uses.
 
 *Note: When using inline bindings, arrays and objects are limited to a depth of 1 level.*
 
 ### Hiding elements from the compiler
 
-In the previous section, we introduced the `<!-- <v> --> … <!-- </v> -->` syntax. These are a pair of opening and closing comments that exclude the contents within from being passed to the template compiler.
+In the previous section, we introduced the `<!-- <q> --> … <!-- </q> -->` syntax. These are a pair of opening and closing comments that exclude the contents within from being passed to the template compiler.
 
 The most obvious use case (and necessary when using inline bindings) is to strip all but the first element of a `v-for` loop as demonstrated earlier.
 
 Another use case is to replace static markup for a component, such as:
 
 ```html
-<!-- <v> -->
+<!-- <q> -->
 <div>I will be stripped in the app and "replaced" with the component version below</div>
-<!-- </v> -->
+<!-- </q> -->
 <my-component text="I'm not visible until parsed through the compiler"></my-component>
 ```
 
