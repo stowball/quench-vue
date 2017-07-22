@@ -1,4 +1,4 @@
-export default Object.assign || function(target) {
+export default Object.assign || function (target) {
   for (let i = 1; i < arguments.length; i++) {
     const source = arguments[i];
 
