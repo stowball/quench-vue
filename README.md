@@ -1,9 +1,18 @@
+<p align="center">
+  <img src="https://s21.postimg.org/7sorzuy5z/logo.png" height="200" alt="Quench Vue logo " />
+  <div align="center">
+    <a href="https://travis-ci.org/stowball/quench-vue">
+      <img src="https://img.shields.io/travis/stowball/quench-vue/master.png?style=flat-square" alt="Travis build status" />
+    </a>
+    <a href="https://www.npmjs.org/package/quench-vue">
+      <img src="https://img.shields.io/npm/v/quench-vue.png?style=flat-square" alt="npm package" />
+    </a>
+  </div>
+</p>
+
 # Quench Vue
 
-[![Travis][build-badge]][build]
-[![npm package][npm-badge]][npm]
-
-**Simple, tiny, client-side hydration of pre-rendered Vue.js apps**
+**Simple, tiny, client-side hydration of pre-rendered [Vue.js](https://vuejs.org) apps**
 
 Quench Vue allows server-rendered/static markup to be used as the `data` and `template` for a Vue.js app. It's great for when you can't/don't want to use "real" [server-side rendering](https://vuejs.org/v2/guide/ssr.html).
 
@@ -292,10 +301,3 @@ Hopefully you've recognised that you're now able to render fast, SEO-friendly st
 
 Copyright (c) 2017 [Matt Stow](http://mattstow.com)  
 Licensed under the MIT license *(see [LICENSE](https://github.com/stowball/quench-vue/blob/master/LICENSE) for details)*
-
-
-[build-badge]: https://img.shields.io/travis/stowball/quench-vue/master.png?style=flat-square
-[build]: https://travis-ci.org/stowball/quench-vue
-
-[npm-badge]: https://img.shields.io/npm/v/quench-vue.png?style=flat-square
-[npm]: https://www.npmjs.org/package/quench-vue
