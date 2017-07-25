@@ -86,7 +86,7 @@ We obviously duplicate the "data" in the markup, and inform Vue which elements a
 
 ```html
 <h1 q-binding="title">Hello, World!</h1>
-<p q-binding="year">2007</p>
+<p q-binding="year">2017</p>
 
 <ul>
   <li v-for="tag in tags">
@@ -143,7 +143,7 @@ The following examples all perfectly re-create the global `q-data` object from b
 ```html
 <div id="app" q-convert-bindings>
   <h1 q-binding="title">Hello, World!</h1>
-  <p q-binding="year">2007</p>
+  <p q-binding="year">2017</p>
 </div>
 ```
 
