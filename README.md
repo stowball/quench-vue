@@ -80,9 +80,9 @@ This method allows you to easily specify the `data` for the app, including array
 </div>
 ```
 
-#### Rendering the data with `[q-binding]`
+#### Rendering the data with `[q-binding]` or `[v-text]`
 
-We obviously duplicate the "data" in the markup, and inform Vue which elements are bound to which `data` properties using a `q-binding` attribute whose value points to a property name, such as:
+We obviously duplicate the "data" in the markup, and inform Vue which elements are bound to which `data` properties using a `q-binding` or [`v-text`](https://vuejs.org/v2/api/#v-text) attribute whose value points to a property name, such as:
 
 ```html
 <h1 q-binding="title">Hello, World!</h1>
@@ -126,7 +126,7 @@ We obviously duplicate the "data" in the markup, and inform Vue which elements a
 
 For iterating over lists, we also need to use another syntax, `<!-- <q> --> … <!-- </q> -->`, which [we'll describe later](#hiding-elements-from-the-compiler).
 
-*Note: You only need to output the `v-for` and the `q-binding` attributes on the first iteration of the loop.*
+*Note: You only need to output the `v-for` and the `q-binding`/`v-text` attributes on the first iteration of the loop.*
 
 ### Method 2: Defining the `data` with inline `[q-binding]` bindings
 
@@ -216,9 +216,34 @@ Hopefully you'll agree that using inline bindings to set the `data` is more comp
 
 *Note: When using inline bindings, arrays and objects are limited to a depth of 1 level.*
 
+### Referencing global variables as `data` properties
+
+As of v0.3.0, you can also pass global variables (on `window`) to be used as data properties. Similarly to `[q-data]`, we can pass a stringified JSON object of key/value pairs to a `[q-r-data]` attribute, where *key* is the name of the `data`'s property and *value* the name of the global variable to be used.
+
+```html
+<script>
+  var ENV = 'dev';
+  var PORT = 3000;
+</script>
+<div id="app" q-r-data='{ "env": "ENV", "port": "PORT" }'></div>
+```
+
+which will produce the following `data`:
+
+```js
+{
+  env: 'dev',
+  port: 3000
+}
+```
+
+*Note:*
+* *Bindings specified in the `q-r-data` object take precedence over those in `q-data`.*
+
+
 ### Hiding elements from the compiler
 
-In the previous section, we introduced the `<!-- <q> --> … <!-- </q> -->` syntax. These are a pair of opening and closing comments that exclude the contents within from being passed to the template compiler.
+In the previous sections, we introduced the `<!-- <q> --> … <!-- </q> -->` syntax. These are a pair of opening and closing comments that exclude the contents within from being passed to the template compiler.
 
 The most obvious use case (and necessary when using inline bindings) is to strip all but the first element of a `v-for` loop as demonstrated earlier.
 
