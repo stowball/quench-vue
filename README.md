@@ -33,7 +33,7 @@ npm install quench-vue --save
 ### Direct `<script>` include
 
 ```html
-<script src="https://unpkg.com/quench-vue@0.2.1/umd/quench-vue.min.js"></script>
+<script src="https://unpkg.com/quench-vue/umd/quench-vue.min.js"></script>
 ```
 
 *Note: You will need to use [the full build of Vue.js](https://vuejs.org/v2/guide/installation.html#Explanation-of-Different-Builds), which includes the compiler.*
@@ -237,9 +237,7 @@ which will produce the following `data`:
 }
 ```
 
-*Note:*
-* *Bindings specified in the `q-r-data` object take precedence over those in `q-data`.*
-
+*Note: Bindings specified in the `q-r-data` object take precedence over those in `q-data`.*
 
 ### Hiding elements from the compiler
 
@@ -303,7 +301,7 @@ var app = new Vue({
 
 ```html
 <script src="https://unpkg.com/vue"></script>
-<script src="https://unpkg.com/quench-vue@0.2.1/umd/quench-vue.min.js"></script>
+<script src="https://unpkg.com/quench-vue/umd/quench-vue.min.js"></script>
 ```
 
 ```js
