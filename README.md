@@ -218,14 +218,23 @@ Hopefully you'll agree that using inline bindings to set the `data` is more comp
 
 ### Referencing global variables as `data` properties
 
-As of v0.3.0, you can also pass global variables (on `window`) to be used as data properties. Similarly to `[q-data]`, we can pass a stringified JSON object of key/value pairs to a `[q-r-data]` attribute, where *key* is the name of the `data`'s property and *value* the name of the global variable to be used.
+You can also pass global variables (on `window`) to be used as data properties. Similarly to `[q-data]`, we can pass a stringified JSON object of key/value pairs to a `[q-r-data]` attribute, where *key* is the name of the `data`'s property and *value* the name of the global variable to be used, which can also use dot notation to access properties of an object.
 
 ```html
 <script>
   var ENV = 'dev';
   var PORT = 3000;
+  var obj = {
+    foo: 'bar',
+    baz: 'qux',
+  }
 </script>
-<div id="app" q-r-data='{ "env": "ENV", "port": "PORT" }'></div>
+<div id="app" q-r-data='{
+  "env": "ENV",
+  "port": "PORT",
+  "foo": "obj.foo",
+  "baz": "obj.qux"
+}'></div>
 ```
 
 which will produce the following `data`:
@@ -233,7 +242,9 @@ which will produce the following `data`:
 ```js
 {
   env: 'dev',
-  port: 3000
+  port: 3000,
+  foo: 'bar',
+  baz: 'qux',
 }
 ```
 
