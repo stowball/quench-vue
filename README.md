@@ -80,17 +80,17 @@ This method allows you to easily specify the `data` for the app, including array
 </div>
 ```
 
-#### Rendering the data with `[q-binding]` or `[v-text]`
+#### Rendering the data with `[v-text]` or `[q-binding]`
 
-We obviously duplicate the "data" in the markup, and inform Vue which elements are bound to which `data` properties using a `q-binding` or [`v-text`](https://vuejs.org/v2/api/#v-text) attribute whose value points to a property name, such as:
+We obviously duplicate the "data" in the markup, and inform Vue which elements are bound to which `data` properties using a [`v-text`](https://vuejs.org/v2/api/#v-text) or `q-binding` attribute whose value points to a property name, such as:
 
 ```html
-<h1 q-binding="title">Hello, World!</h1>
-<p q-binding="year">2017</p>
+<h1 v-text="title">Hello, World!</h1>
+<p v-text="year">2017</p>
 
 <ul>
   <li v-for="tag in tags">
-    <span q-binding="tag">js</span>
+    <span v-text="tag">js</span>
   </li>
   <!-- <q> -->
   <li>
@@ -101,7 +101,7 @@ We obviously duplicate the "data" in the markup, and inform Vue which elements a
 
 <ul>
   <li v-for="key in author">
-    <span q-binding="key">Matt</span>
+    <span v-text="key">Matt</span>
   </li>
   <!-- <q> -->
   <li>
@@ -112,8 +112,8 @@ We obviously duplicate the "data" in the markup, and inform Vue which elements a
 
 <ul>
   <li v-for="skill in skills">
-    <span q-binding="skill.name">JS</span>
-    <span q-binding="skill.level">4</span>
+    <span v-text="skill.name">JS</span>
+    <span v-text="skill.level">4</span>
   </li>
   <!-- <q> -->
   <li>
@@ -126,7 +126,9 @@ We obviously duplicate the "data" in the markup, and inform Vue which elements a
 
 For iterating over lists, we also need to use another syntax, `<!-- <q> --> … <!-- </q> -->`, which [we'll describe later](#hiding-elements-from-the-compiler).
 
-*Note: You only need to output the `v-for` and the `q-binding`/`v-text` attributes on the first iteration of the loop.*
+*Note:*
+* *You can also use [`v-html`](https://vuejs.org/v2/api/#v-html) to render HTML, but ensure that it's sanitized and trusted.*
+* *You only need to output the `v-for` and the `v-text`/`q-binding` attributes on the first iteration of the loop.*
 
 ### Method 2: Defining the `data` with inline `[q-binding]` bindings
 
@@ -233,7 +235,7 @@ You can also pass global variables (on `window`) to be used as data properties. 
   "env": "ENV",
   "port": "PORT",
   "foo": "obj.foo",
-  "baz": "obj.qux"
+  "baz": "obj.baz"
 }'></div>
 ```
 
@@ -274,18 +276,18 @@ To prevent layout jumping and repositioning when the app's template gets compile
 By adding a class on your app container and an appropriate CSS rule, this can be achieved easily:
 
 ```html
-<div id="app" class="pre-rendered">
-  <button class="hide-when-pre-rendered" v-on:click="doSomething">I'm a button that only works with JS</button>
+<div id="app" class="pre-quench">
+  <button class="hide-when-pre-quench" v-on:click="doSomething">I'm a button that only works with JS</button>
 </div>
 ```
 
 ```css
-.pre-rendered .hide-when-pre-rendered {
+.pre-quench .hide-when-pre-quench {
   visibility: hidden;
 }
 ```
 
-When Vue compiles our new template, it strips all of the container's attributes from the DOM, thus the class will no longer match.
+When Quench compiles our template for Vue, it removes any `pre-quench` classes and adds a `quenched` class, thus providing the ability to style elements based on the pre and post-quenched state.
 
 ### Instantiating the app
 
@@ -329,7 +331,7 @@ var app = new Vue({
 
 ## Benefits
 
-Hopefully you've recognised that you're now able to render fast, SEO-friendly static markup (either from a CMS, static-site generator or component library such as [Fractal](http://fractal.build/)) and have it quickly and easily converted in to a fully dynamic, client-side Vue.js application, without having to set up more complicated server-side rendering processes.
+Hopefully you've recognized that you're now able to render fast, SEO-friendly static markup (either from a CMS, static-site generator or component library such as [Fractal](http://fractal.build/)) and have it quickly and easily converted in to a fully dynamic, client-side Vue.js application, without having to set up more complicated server-side rendering processes.
 
 ---
 
