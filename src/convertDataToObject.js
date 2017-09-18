@@ -26,6 +26,6 @@ const convertDataToObject = (app) => {
   }
 
   return _objectAssign({}, data, rData);
-}
+};
 
 export default convertDataToObject;

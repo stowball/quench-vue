@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://s21.postimg.org/7sorzuy5z/logo.png" height="200" alt="Quench Vue logo " />
+  <img src="https://s21.postimg.org/7sorzuy5z/logo.png" height="200" alt="Quench Vue logo" />
   <div align="center">
     <a href="https://travis-ci.org/stowball/quench-vue">
       <img src="https://img.shields.io/travis/stowball/quench-vue/master.png?style=flat-square" alt="Travis build status" />
@@ -14,9 +14,45 @@
 
 **Simple, tiny, client-side hydration of pre-rendered [Vue.js](https://vuejs.org) apps**
 
-Quench Vue allows server-rendered/static markup to be used as the `data` and `template` for a Vue.js app. It's great for when you can't/don't want to use "real" [server-side rendering](https://vuejs.org/v2/guide/ssr.html).
+Quench Vue allows server-rendered/static markup to be used as a Vue app's `data`, `template` and local components' `template`s. It's great for when you can't/don't want to use "real" [server-side rendering](https://vuejs.org/v2/guide/ssr.html).
 
 All of Vue's existing features will work as normal when the app is initialised in the browser.
+
+## Table of Contents
+
+- [Demo](#demo)
+- [Installation](#installation)
+  - [npm](#npm)
+  - [Direct `<script>` include](#direct-script-include)
+- [Usage](#usage)
+- [Defining the app `data` and `template`](#defining-the-app-data-and-template)
+  - [Method 1: Defining the `data` with `[q-data]`](#method-1-defining-the-data-with-q-data)
+    - [Rendering the data with `[v-text]` or `[q-binding]`](#rendering-the-data-with-v-text-or-q-binding)
+  - [Method 2: Defining the `data` with inline `[q-binding]` bindings](#method-2-defining-the-data-with-inline-q-binding-bindings)
+    - [Simple bindings](#simple-bindings)
+    - [Array and Object bindings](#array-and-object-bindings)
+      - [Array](#array)
+      - [Object](#object)
+      - [Array of Objects](#array-of-objects)
+  - [Referencing global variables as `data` properties](#referencing-global-variables-as-data-properties)
+  - [Excluding elements from the app template compiler](#excluding-elements-from-the-app-template-compiler)
+  - [Instantiating the app](#instantiating-the-app)
+    - [With a module bundler, such as webpack](#with-a-module-bundler-such-as-webpack)
+    - [For direct `<script>` include](#for-direct-script-include)
+- [Defining local component `template`s](#defining-local-component-templates)
+  - [Specifying a component with `[q-component]`](#specifying-a-component-with-q-component)
+  - [Specifying a component's `template`](#specifying-a-components-template)
+  - [Handling a `template`'s logic](#handling-a-templates-logic)
+    - [Method 1: Add the logic within the markup](#method-1-add-the-logic-within-the-markup)
+    - [Method 2: Add the logic to the component's JavaScript using `partials`](#method-2-add-the-logic-to-the-components-javascript-using-partials)
+    - [Define a completely different component](#define-a-completely-different-component)
+  - [Excluding elements from the component template compiler](#excluding-elements-from-the-component-template-compiler)
+  - [Rendering future components dynamically](#rendering-future-components-dynamically)
+  - [Updating our app initialization to support pre-rendered components](#updating-our-app-initialization-to-support-pre-rendered-components)
+    - [With a module bundler, such as webpack](#with-a-module-bundler-such-as-webpack-1)
+    - [For direct `<script>` include](#for-direct-script-include-1)
+- [Hiding elements in the pre-rendered HTML](#hiding-elements-in-the-pre-rendered-html)
+- [Benefits](#benefits)
 
 ## Demo
 
@@ -40,6 +76,11 @@ npm install quench-vue --save
 
 ## Usage
 
+1. [Defining the app `data` and `template`](#defining-the-app-data-and-template).
+2. [Defining local component `template`s](#defining-local-component-templates).
+
+## Defining the app `data` and `template`
+
 There are 2 ways of defining and using `data` for the app:
 
 1. With a stringified JSON object in the app container's `q-data` attribute; and/or
@@ -54,7 +95,7 @@ Let's look at some examples:
 This method allows you to easily specify the `data` for the app, including arrays and objects.
 
 ```html
-<div id="app" q-data='
+<div id="app" q-data='{
   "title": "Hello, world!",
   "year": 2017,
   "tags": [
@@ -75,7 +116,7 @@ This method allows you to easily specify the `data` for the app, including array
       "level": 5
     }
   ]
-'>
+}'>
 …
 </div>
 ```
@@ -132,7 +173,7 @@ For iterating over lists, we also need to use another syntax, `<!-- <q> --> … 
 
 ### Method 2: Defining the `data` with inline `[q-binding]` bindings
 
-When `q-convert-bindings` is set on the app's container, we can also use the `[q-binding]` attribute to create a `data` variable that is equal to the value of the element's `.textContent`.
+While we don't recommend the following approach for anything but the simplest of apps, when `q-convert-bindings` is set on the app's container, we can also use the `q-binding` attribute to create a `data` variable that is equal to the value of the element's `.textContent`.
 
 *Note:*
 * *Bindings specified in the global `q-data` object take precedence over inline bindings.*
@@ -220,7 +261,7 @@ Hopefully you'll agree that using inline bindings to set the `data` is more comp
 
 ### Referencing global variables as `data` properties
 
-You can also pass global variables (on `window`) to be used as data properties. Similarly to `[q-data]`, we can pass a stringified JSON object of key/value pairs to a `[q-r-data]` attribute, where *key* is the name of the `data`'s property and *value* the name of the global variable to be used, which can also use dot notation to access properties of an object.
+You can also pass global variables (on `window`) to be used as data properties. Similarly to `q-data`, we can pass a stringified JSON object of key/value pairs to a `q-r-data` attribute, where *key* is the name of the `data`'s property and *value* the name of the global variable to be used, which can also use dot notation to access properties of an object.
 
 ```html
 <script>
@@ -252,7 +293,7 @@ which will produce the following `data`:
 
 *Note: Bindings specified in the `q-r-data` object take precedence over those in `q-data`.*
 
-### Hiding elements from the compiler
+### Excluding elements from the app template compiler
 
 In the previous sections, we introduced the `<!-- <q> --> … <!-- </q> -->` syntax. These are a pair of opening and closing comments that exclude the contents within from being passed to the template compiler.
 
@@ -268,26 +309,6 @@ Another use case is to replace static markup for a component, such as:
 ```
 
 *Note: Nesting comments is not supported.*
-
-#### Hiding elements in the pre-rendered HTML
-
-To prevent layout jumping and repositioning when the app's template gets compiled, it can be beneficial to visually (and accessibly) hide elements and content that is inappropriate without JavaScript, such as a `<button>`.
-
-By adding a class on your app container and an appropriate CSS rule, this can be achieved easily:
-
-```html
-<div id="app" class="pre-quench">
-  <button class="hide-when-pre-quench" v-on:click="doSomething">I'm a button that only works with JS</button>
-</div>
-```
-
-```css
-.pre-quench .hide-when-pre-quench {
-  visibility: hidden;
-}
-```
-
-When Quench compiles our template for Vue, it removes any `pre-quench` classes and adds a `quenched` class, thus providing the ability to style elements based on the pre and post-quenched state.
 
 ### Instantiating the app
 
@@ -329,9 +350,414 @@ var app = new Vue({
 });
 ```
 
+## Defining local component `template`s
+
+Vue applications often comprise of multiple components, which promotes reuse and reduces repetition. However, the more components you have, the greater your JavaScript bundle will be. While complex components, such as interactive UI widgets should probably be defined in JavaScript, simpler, more display-only components can easily be defined from existing, pre-rendered HTML with Quench Vue.
+
+Defining local component `template`s from existing markup suits situations such as an infinite scroll of news cards, where the original "page" of cards are pre-rendered, and as a user scrolls, your Vue app needs to fetch and append more cards from a JSON API response.
+
+*Note: You cannot use Quench Vue to specify the `template` of global components created with `Vue.component()`. We consider global components an anti-pattern anyway.*
+
+### Specifying a component with `[q-component]`
+
+Any element within your app's `el` can be used as the markup for a component by adding an attribute of `q-component="NAME"`, where `"NAME"` is the name of the local component defined in your Vue app.
+
+Typically, this would on a `<div>` or similar, which sets the `outerHTML` of the element to be used as the `template`. However, you can also use a `<template>` element as the component definition, in which case the `innerHTML` becomes the `template`.
+
+For instance:
+
+```html
+<div q-component="card">
+  <h3>Card</h3>
+</div>
+```
+
+will create a `template` of:
+
+```html
+<div q-component="card">
+  <h3>Card</h3>
+</div>
+```
+
+but:
+
+```html
+<template q-component="card">
+  <h3>Card</h3>
+</div>
+```
+
+will create a `template` of:
+
+```html
+<h3>Card</h3>
+```
+
+*Note: Only the first instance of `q-component="NAME"` will be used as the component's `template`, so it's safe to output multiple instances when iterating over an array on the back-end.*
+
+### Specifying a component's `template`
+
+The previous templates aren't particularly useful, but as you'd expect, any Vue directives or template syntax can be used and will be converted, similar to the app's template above (with the exception of not supporting Quench Vue's `q-binding`).
+
+Take the following HTML:
+
+```html
+<div
+  q-component="card"
+  class="card"
+  v-bind:class="{ 'card--feature': props.isFeatured }"
+>
+  <a
+    href="/news/nintendo-arcade"
+    v-bind:href="props.href"
+  >
+    <h3 v-text="props.title">
+      Mario Bros And Other Nintendo Arcade Games Coming To Nintendo Switch
+    </h3>
+    <p v-text="props.date">
+      September 13, 2017
+    </p>
+  </a>
+</div>
+
+<div
+  q-component="card"
+  class="card"
+  v-bind:class="{ 'card--feature': props.isFeatured }"
+>
+  <a
+    href="/news/doom-2016"
+    v-bind:href="props.href"
+  >
+    <h3 v-text="props.title">
+      Doom 2016 Is Coming To Nintendo Switch
+    </h3>
+    <p v-text="props.date">
+      September 12, 2017
+    </p>
+  </a>
+</div>
+```
+
+which will define the `card` component's `template` as:
+
+```html
+<div
+  class="card"
+  v-bind:class="{ 'card--feature': props.isFeatured }"
+>
+  <a v-bind:href="props.href">
+    <h3 v-text="props.title"></h3>
+    <p v-text="props.date"></p>
+  </a>
+</div>
+```
+
+### Handling a `template`'s logic
+
+While the previous template will handle content and style differences, it's not uncommon for a component's markup to also change based on certain conditions. There a 3 ways in which we can handle these logic requirements:
+
+1. Add the logic within the markup (often using `<template>` so they're invisible in the pre-rendered markup).
+2. Add the logic within the component's JavaScript using a proprietary `partials` object and reference it with a special `<q-component-partial name="NAME"></q-component-partial>` syntax; or
+3. Define a completely different component.
+
+Let's look at some examples:
+
+#### Method 1: Add the logic within the markup
+
+```html
+<div
+  q-component="card"
+  class="card"
+  v-bind:class="{ 'card--feature': props.isFeatured }"
+>
+  <a
+    href="/news/nintendo-arcade"
+    v-bind:href="props.href"
+  >
+    <!-- <q-component> -->
+    <img src="/nintendo-arcade.jpg" alt="Screenshot of Nintendo arcade games" />
+    <!-- </q-component> -->
+    <template v-if="props.image">
+      <img
+        v-bind:src="props.image"
+        v-bind:alt="props.alt"
+      />
+    </template>
+    <template v-else>
+      <div class="fallback"></div>
+    </template>
+    <h3 v-text="props.title">
+      Mario Bros And Other Nintendo Arcade Games Coming To Nintendo Switch
+    </h3>
+    <p v-text="props.date">
+      September 13, 2017
+    </p>
+  </a>
+</div>
+```
+
+This will most likely be the primary method used to handle template logic, however, with complex conditions, you may like to consider the following 2 approaches.
+
+#### Method 2: Add the logic to the component's JavaScript using `partials`
+
+When defining the component in JavaScript, add a `partials` object with a name and template string key/value pair, like so:
+
+```js
+components: {
+  card: {
+    partials: {
+      image: `
+        <template v-if="props.image">
+          <img
+            v-bind:src="props.image"
+            v-bind:alt="props.alt"
+          />
+        </template>
+        <template v-else>
+          <div class="fallback"></div>
+        </template>
+      ` // Using ES6 template literals, but any string concatenation method works
+    }
+  }
+}
+```
+
+and reference it in the pre-rendered component with `<q-component-partial name="image"></q-component-partial>`:
+
+```html
+<div
+  q-component="card"
+  class="card"
+  v-bind:class="{ 'card--feature': props.isFeatured }"
+>
+  <a
+    href="/news/nintendo-arcade"
+    v-bind:href="props.href"
+  >
+    <!-- <q-component> -->
+    <img src="/nintendo-arcade.jpg" alt="Screenshot of Nintendo arcade games" />
+    <!-- </q-component> -->
+    <q-component-partial name="image"></q-component-partial>
+    <h3 v-text="props.title">
+      Mario Bros And Other Nintendo Arcade Games Coming To Nintendo Switch
+    </h3>
+    <p v-text="props.date">
+      September 13, 2017
+    </p>
+  </a>
+</div>
+```
+
+When the template is compiled this `<q-component-partial name="image">` will be converted to the value of the app's `components.partials.image` property.
+
+This method allows you to move more complex or repetitive logic into the JavaScript to reduce the size of the pre-rendered HTML.
+
+*Note: Having a `<q-component-partial>` element within your markup could affect your layout. There are 2 solutions to this problem:*
+1. *Add `q-component-partial { display: none; }` to your CSS, which allows clearer syntax highlighting of the partial in the markup; or*
+2. *Wrap HTML comments around the tag `<!-- <q-component-partial></q-component-partial> -->`, which reduces the need for extra CSS, but may make the HTML less obvious in your editor.*
+
+#### Define a completely different component
+
+Instead of handling the logic in the front-end, you could define separate component variations in the pre-rendered HTML. The downside to this approach is, that if your original markup didn't contain a component variation which was later used, Vue would throw an error. A workaround to this is to output a `<template q-component="NAME">` as a fallback for all possible variations that weren't in the original data.
+
+Here we define 2 components, `card--default` and `card--fallback`, and remove all the `v-if` logic from the markup.
+
+```html
+<div
+  q-component="card--default"
+  class="card"
+  v-bind:class="{ 'card--feature': props.isFeatured }"
+>
+  <a
+    href="/news/nintendo-arcade"
+    v-bind:href="props.href"
+  >
+    <img
+      src="/nintendo-arcade.jpg"
+      alt="Screenshot of Nintendo arcade games"
+      v-bind:src="props.image"
+      v-bind:alt="props.alt"
+    />
+    <h3 v-text="props.title">
+      Mario Bros And Other Nintendo Arcade Games Coming To Nintendo Switch
+    </h3>
+    <p v-text="props.date">
+      September 13, 2017
+    </p>
+  </a>
+</div>
+
+<template
+  q-component="card--fallback"
+>
+  <div
+    class="card"
+    v-bind:class="{ 'card--feature': props.isFeatured }"
+  >
+    <a
+      href="/news/doom-2016"
+      v-bind:href="props.href"
+    >
+      <div class="fallback"></div>
+      <h3 v-text="props.title">
+        Doom 2016 Is Coming To Nintendo Switch
+      </h3>
+      <p v-text="props.date">
+        September 12, 2017
+      </p>
+    </a>
+  </div>
+</template>
+```
+
+### Excluding elements from the component template compiler
+
+Similarly to [excluding elements from the app template compiler](#excluding-elements-from-the-app-template-compiler), elements within a component can be excluded from its template by being wrapped in a pair of `<!-- <q-component> --> … <!-- </q-component> -->` comments as demonstrated in the earlier examples.
+
+### Rendering future components dynamically
+
+While Vue components are normally rendered with using their name in angle brackets (`<navigation></navigation>`), it also [supports a meta component (`<component></component>`)](https://vuejs.org/v2/api/#component) which allows us to programmatically render a component of our choice.
+
+Assuming we had 4 card variations: `card--default`, `card--fallback`, `card--twitter` and `card--instagram`, we can use a unique variable (often a property on the card's `props` object such as `type`) to selectively render future components of that type using the `is` attribute.
+
+Here we iterate over our `cards` array, dynamically render the correct card component based on `card.type` and pass the card's data to the `props` prop.
+
+```html
+<li v-for"card in cards">
+  <component
+    v-bind:props="card"
+    v-bind:is="card.type"
+  ></component>
+</li>
+```
+
+```js
+[
+  {
+    type: 'card--twitter',
+    title: 'Arguing on the Internet still rampant',
+    …
+  },
+  {
+    type: 'card--default',
+    title: 'Mario Bros And Other Nintendo Arcade Games Coming To Nintendo Switch',
+    …
+  },
+  {
+    type: 'card--instagram',
+    title: 'Check out this selfie of me and my avocado',
+    …
+  },
+  {
+    type: 'card--fallback',
+    title: 'Doom 2016 Is Coming To Nintendo Switch',
+    …
+  }
+]
+```
+
+### Updating our app initialization to support pre-rendered components
+
+Very little needs to change [from our earlier example](#instantiating-the-app).
+
+#### With a module bundler, such as webpack
+
+```js
+import Vue from 'vue';
+import { createAppData, createAppTemplate, createComponentTemplates } from 'quench-vue';
+
+var appEl = document.getElementById('app');
+var data = createAppData(appEl);
+var components = {
+  'card--default': { // Register all possible components for this app
+    props: ['props'] // Define props as you normally would
+  },
+  'card--fallback': {
+    props: ['props']
+  },
+  'card--instagram': {
+    props: ['props']
+  },
+  'card--twitter': {
+    props: ['props']
+  }
+};
+components = createComponentTemplates(app, components); // Convert and add templates to your components
+var template = createAppTemplate(appEl); // createAppTemplate has to be called after createComponentTemplates
+
+var app = new Vue({
+  el: appEl,
+  components: components,
+  data: data,
+  template: template,
+});
+```
+
+#### For direct `<script>` include
+
+```html
+<script src="https://unpkg.com/vue"></script>
+<script src="https://unpkg.com/quench-vue/umd/quench-vue.min.js"></script>
+```
+
+```js
+var appEl = document.getElementById('app');
+var data = quenchVue.createAppData(appEl);
+var components = {
+  'card--default': { // Register all possible components for this app
+    props: ['props'] // Define props as you normally would
+  },
+  'card--fallback': {
+    props: ['props']
+  },
+  'card--instagram': {
+    props: ['props']
+  },
+  'card--twitter': {
+    props: ['props']
+  }
+};
+components = quenchVue.createComponentTemplates(app, components); // Convert and add templates to your components
+var template = quenchVue.createAppTemplate(appEl); // createAppTemplate has to be called after createComponentTemplates
+
+var app = new Vue({
+  el: appEl,
+  components: components,
+  data: data,
+  template: template,
+});
+```
+
+## Hiding elements in the pre-rendered HTML
+
+To prevent layout jumping and repositioning when the app's template gets compiled, it can be beneficial to visually (and accessibly) hide elements and content that is inappropriate without JavaScript, such as a `<button>`.
+
+By adding a class on your app container and an appropriate CSS rule, this can be achieved easily:
+
+```html
+<div id="app" class="pre-quench">
+  <button
+    class="hide-when-pre-quench"
+    v-on:click="doSomething"
+  >
+    I'm a button that only works with JS
+  </button>
+</div>
+```
+
+```css
+.pre-quench .hide-when-pre-quench {
+  visibility: hidden;
+}
+```
+
+When Quench compiles our template for Vue, it removes any `pre-quench` classes and adds a `quenched` class, thus providing the ability to style elements based on the pre and post-quenched state.
+
 ## Benefits
 
-Hopefully you've recognized that you're now able to render fast, SEO-friendly static markup (either from a CMS, static-site generator or component library such as [Fractal](http://fractal.build/)) and have it quickly and easily converted in to a fully dynamic, client-side Vue.js application, without having to set up more complicated server-side rendering processes.
+Hopefully you've recognized that you're now able to render fast, SEO-friendly static markup (either from a CMS, static-site generator or component library such as [Fractal](http://fractal.build/)) and have it quickly and easily converted into a fully dynamic, client-side Vue.js application, without having to set up more complicated server-side rendering processes.
 
 ---
 

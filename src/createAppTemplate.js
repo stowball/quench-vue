@@ -4,8 +4,9 @@ const createAppTemplate = (app) => {
 
   let html = app.outerHTML
     .replace(/<!--\s*<q>\s*-->[\s\S]*?<!--\s*<\/q>\s*-->/g, '')
-    .replace(/ q-binding=".*?\s+as\s+/g, ' q-binding="')
-    .replace(/ q-binding="(.*?)"(.*?)>[\s\S]*?<\//g, '$2>{{ $1 }}</');
+    .replace(/\sq-binding=".*?\s+as\s+/g, ' q-binding="')
+    .replace(/q-binding="/g, 'v-text="')
+    .replace(/(\sv-(text|html).*?>)[\s\S]*?<\//g, '$1</');
 
   if (hadClassName) {
     html = html.replace(/(class=").*?"/, `$1${quenchedClassName}"`);
