@@ -385,7 +385,7 @@ but:
 ```html
 <template q-component="card">
   <h3>Card</h3>
-</div>
+</template>
 ```
 
 will create a `template` of:
@@ -618,7 +618,7 @@ Similarly to [excluding elements from the app template compiler](#excluding-elem
 
 ### Rendering future components dynamically
 
-While Vue components are normally rendered with using their name in angle brackets (`<navigation></navigation>`), it also [supports a meta component (`<component></component>`)](https://vuejs.org/v2/api/#component) which allows us to programmatically render a component of our choice.
+While components are normally rendered with their name in angled brackets (`<navigation></navigation>`), Vue also [supports a meta component (`<component></component>`)](https://vuejs.org/v2/api/#component) which allows us to programmatically render a component of our choice.
 
 Assuming we had 4 card variations: `card--default`, `card--fallback`, `card--twitter` and `card--instagram`, we can use a unique variable (often a property on the card's `props` object such as `type`) to selectively render future components of that type using the `is` attribute.
 
