@@ -352,7 +352,7 @@ var app = new Vue({
 
 ## Defining local component `template`s
 
-Vue applications often comprise of multiple components, which promotes reuse and reduces repetition. However, the more components you have, the greater your JavaScript bundle will be. While complex components, such as interactive UI widgets should probably be defined in JavaScript, simpler, more display-only components can easily be defined from existing, pre-rendered HTML with Quench Vue.
+Vue applications are often comprised of multiple components, which promotes reuse and reduces repetition. However, the more components you have, the greater your JavaScript bundle will be. While complex components, such as interactive UI widgets should probably be defined in JavaScript, simpler, more display-only components can easily be defined from existing, pre-rendered HTML with Quench Vue.
 
 Defining local component `template`s from existing markup suits situations such as an infinite scroll of news cards, where the original "page" of cards are pre-rendered, and as a user scrolls, your Vue app needs to fetch and append more cards from a JSON API response.
 
@@ -550,7 +550,7 @@ and reference it in the pre-rendered component with `<q-component-partial name="
 </div>
 ```
 
-When the template is compiled this `<q-component-partial name="image">` will be converted to the value of the app's `components.partials.image` property.
+When the template is compiled, this `<q-component-partial name="image">` will be converted to the value of the app's `components.partials.image` property.
 
 This method allows you to move more complex or repetitive logic into the JavaScript to reduce the size of the pre-rendered HTML.
 
@@ -627,8 +627,8 @@ Here we iterate over our `cards` array, dynamically render the correct card comp
 ```html
 <li v-for"card in cards">
   <component
-    v-bind:props="card"
     v-bind:is="card.type"
+    v-bind:props="card"
   ></component>
 </li>
 ```
@@ -666,7 +666,7 @@ Very little needs to change [from our earlier example](#instantiating-the-app).
 
 ```js
 import Vue from 'vue';
-import { createAppData, createAppTemplate, createComponentTemplates } from 'quench-vue';
+import { createAppData, createAppTemplate, createComponentTemplates } from 'quench-vue'; // import createComponentTemplates
 
 var appEl = document.getElementById('app');
 var data = createAppData(appEl);
