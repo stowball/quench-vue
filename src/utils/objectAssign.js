@@ -10,4 +10,4 @@ export default Object.assign || function (target) {
   }
 
   return target;
-}
+};
