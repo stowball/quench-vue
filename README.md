@@ -52,6 +52,7 @@ All of Vue's existing features will work as normal when the app is initialised i
     - [With a module bundler, such as webpack](#with-a-module-bundler-such-as-webpack-1)
     - [For direct `<script>` include](#for-direct-script-include-1)
 - [Hiding elements in the pre-rendered HTML](#hiding-elements-in-the-pre-rendered-html)
+- [Embedding additional app templates](#embedding-additional-app-templates)
 - [Benefits](#benefits)
 
 ## Demo
@@ -754,6 +755,31 @@ By adding a class on your app container and an appropriate CSS rule, this can be
 ```
 
 When Quench compiles our template for Vue, it removes any `pre-quench` classes and adds a `quenched` class, thus providing the ability to style elements based on the pre and post-quenched state.
+
+## Embedding additional app templates
+
+You may also like to embed an additional JavaScript string template within the compiled, pre-rendered template. This can easily be achieved by passing the template as the second parameter to `createAppTemplate()`, and describing where it will appear with `<q-template></q-template>` tag.
+
+A possible use case for this technique is when you need to create multiple apps of simple components (such as a video player), but you don't want to have to continually repeat the `<video-player />` component definition.
+
+```html
+<div
+  class="video-player"
+  q-data='{
+    "autoplay": true,
+    "id": "someId"
+  }'
+>
+  <q-template></q-template>
+</div>
+```
+
+```js
+var baseTemplate = '<video-player v-bind:autoplay="autoplay" v-bind:id="id"></video-player>';
+var template = createAppTemplate(appEl, baseTemplate);
+```
+
+*Note: You can also wrap HTML comments around the tag `<!-- <q-template></q-template> -->`, to hide the placeholder from the browser's parser.*
 
 ## Benefits
 
