@@ -758,7 +758,7 @@ When Quench compiles our template for Vue, it removes any `pre-quench` classes a
 
 ## Embedding additional app templates
 
-You may also like to embed an additional JavaScript string template within the compiled, pre-rendered template. This can easily be achieved by passing the template as the second parameter to `createAppTemplate()`, and describing where it will appear with `<q-template></q-template>` tag.
+You may also like to embed an additional JavaScript string template within the compiled, pre-rendered template. This can easily be achieved by passing the template as the second parameter to `createAppTemplate()`, and describing where it will appear with a `<q-template></q-template>` tag.
 
 A possible use case for this technique is when you need to create multiple apps of simple components (such as a video player), but you don't want to have to continually repeat the `<video-player />` component definition.
 
