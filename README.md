@@ -376,7 +376,7 @@ For instance:
 will create a `template` of:
 
 ```html
-<div q-component="card">
+<div>
   <h3>Card</h3>
 </div>
 ```
@@ -384,9 +384,11 @@ will create a `template` of:
 but:
 
 ```html
+<!-- <q> -->
 <template q-component="card">
   <h3>Card</h3>
 </template>
+<!-- </q> -->
 ```
 
 will create a `template` of:
@@ -395,7 +397,9 @@ will create a `template` of:
 <h3>Card</h3>
 ```
 
-*Note: Only the first instance of `q-component="NAME"` will be used as the component's `template`, so it's safe to output multiple instances when iterating over an array on the back-end.*
+*Note:*
+* *Only the first instance of `q-component="NAME"` will be used as the component's `template`, so it's safe to output multiple instances when iterating over an array on the back-end.*
+* *Components defined with `<template>` need to be wrapped in `<!-- <q> --> … <!-- </q> -->` comments to prevent them being included in the app's template.*
 
 ### Specifying a component's `template`
 
