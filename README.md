@@ -363,7 +363,7 @@ Defining local component `template`s from existing markup suits situations such 
 
 Any element within your app's `el` can be used as the markup for a component by adding an attribute of `q-component="NAME"`, where `"NAME"` is the name of the local component defined in your Vue app.
 
-Typically, this would on a `<div>` or similar, which sets the `outerHTML` of the element to be used as the `template`. However, you can also use a `<template>` element as the component definition, in which case the `innerHTML` becomes the `template`.
+Typically, this would be on a `<div>` or similar, which sets the `outerHTML` of the element to be used as the `template`. However, you can also use a `<template>` element as the component definition, in which case the `innerHTML` becomes the `template`.
 
 For instance:
 
@@ -399,7 +399,8 @@ will create a `template` of:
 
 *Note:*
 * *Only the first instance of `q-component="NAME"` will be used as the component's `template`, so it's safe to output multiple instances when iterating over an array on the back-end.*
-* *Components defined with `<template>` need to be wrapped in `<!-- <q> --> … <!-- </q> -->` comments to prevent them being included in the app's template.*
+* *Components defined with `<template>` need to be wrapped in `<!-- <q> --> … <!-- </q> -->` comments to prevent them from being included in the app's template.*
+* *We opted for a custom, `q-component` syntax (compared with Vue's native [`inline-template`](https://vuejs.org/v2/guide/components.html#Inline-Templates) syntax) for various reasons, but mainly because it allows for greater flexibility in the types of templates that can be defined (such as `<tr>`s with multiple children), and we can supplement with additional features as described below.*
 
 ### Specifying a component's `template`
 
