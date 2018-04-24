@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://s21.postimg.org/7sorzuy5z/logo.png" height="200" alt="Quench Vue logo" />
+  <img src="https://i.imgur.com/CbwlGnn.png" height="200" alt="Quench Vue logo" />
   <div align="center">
     <a href="https://travis-ci.org/stowball/quench-vue">
       <img src="https://img.shields.io/travis/stowball/quench-vue/master.png?style=flat-square" alt="Travis build status" />
