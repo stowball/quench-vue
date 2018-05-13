@@ -203,14 +203,16 @@ To replicate the `tags` array from above, we would:
 
 ```html
 <div id="app" q-convert-bindings>
-  <li v-for="tag in tags">
-    <span q-binding="tags[0] as tag">js</span>
-  </li>
-  <!-- <q> -->
-  <li>
-    <span q-binding="tags[1] as tag">library</span>
-  </li>
-  <!-- </q> -->
+  <ul>
+    <li v-for="tag in tags">
+      <span q-binding="tags[0] as tag">js</span>
+    </li>
+    <!-- <q> -->
+    <li>
+      <span q-binding="tags[1] as tag">library</span>
+    </li>
+    <!-- </q> -->
+  </ul>
 </div>
 ```
 
@@ -222,14 +224,16 @@ To replicate the `author` object from above, we would:
 
 ```html
 <div id="app" q-convert-bindings>
-  <li v-for="key in author">
-    <span q-binding="author.firstName as key">Matt</span>
-  </li>
-  <!-- <q> -->
-  <li>
-    <span q-binding="author.lastName as key">Stow</span>
-  </li>
-  <!-- </q> -->
+  <ul>
+    <li v-for="key in author">
+      <span q-binding="author.firstName as key">Matt</span>
+    </li>
+    <!-- <q> -->
+    <li>
+      <span q-binding="author.lastName as key">Stow</span>
+    </li>
+    <!-- </q> -->
+  </ul>
 </div>
 ```
 
@@ -241,16 +245,18 @@ Both of the above techniques can be combined, so to replicate the `skills` array
 
 ```html
 <div id="app" q-convert-bindings>
-  <li v-for="skill in skills">
-    <span q-binding="skills[0].name as skill.name">JS</span>
-    <span q-binding="skills[0].level as skill.level">4</span>
-  </li>
-  <!-- <q> -->
-  <li>
-    <span q-binding="skills[1].name as skill.name">CSS</span>
-    <span q-binding="skills[1].level as skill.level">5</span>
-  </li>
-  <!-- </q> -->
+  <ul>
+    <li v-for="skill in skills">
+      <span q-binding="skills[0].name as skill.name">JS</span>
+      <span q-binding="skills[0].level as skill.level">4</span>
+    </li>
+    <!-- <q> -->
+    <li>
+      <span q-binding="skills[1].name as skill.name">CSS</span>
+      <span q-binding="skills[1].level as skill.level">5</span>
+    </li>
+    <!-- </q> -->
+  </ul>
 </div>
 ```
 
