@@ -34,6 +34,7 @@ All of Vue's existing features will work as normal when the app is initialised i
       - [Array](#array)
       - [Object](#object)
       - [Array of Objects](#array-of-objects)
+    - [Non-element bindings](#non-element-bindings)
   - [Referencing global variables as `data` properties](#referencing-global-variables-as-data-properties)
   - [Excluding elements from the app template compiler](#excluding-elements-from-the-app-template-compiler)
   - [Instantiating the app](#instantiating-the-app)
@@ -98,7 +99,7 @@ This method allows you to easily specify the `data` for the app, including array
 ```html
 <div id="app" q-data='{
   "title": "Hello, world!",
-  "year": 2017,
+  "year": 2018,
   "tags": [
     "js",
     "library"
@@ -128,7 +129,7 @@ We obviously duplicate the "data" in the markup, and inform Vue which elements a
 
 ```html
 <h1 v-text="title">Hello, World!</h1>
-<p v-text="year">2017</p>
+<p v-text="year">2018</p>
 
 <ul>
   <li v-for="tag in tags">
@@ -187,7 +188,7 @@ The following examples all perfectly re-create the global `q-data` object from b
 ```html
 <div id="app" q-convert-bindings>
   <h1 q-binding="title">Hello, World!</h1>
-  <p q-binding="year">2017</p>
+  <p q-binding="year">2018</p>
 </div>
 ```
 
@@ -265,6 +266,39 @@ where `itemsSource` is the name of the array and index (`skills[0]`) plus the re
 Hopefully you'll agree that using inline bindings to set the `data` is more complicated than using the `q-data` method, but it can still have its uses.
 
 *Note: When using inline bindings, arrays and objects are limited to a depth of 1 level.*
+
+#### Non-element bindings
+
+Since v0.7.0, you can also create `data` from bindings using specially formatted comments, thus not requiring to have actual elements to attach to. This can be useful if you need to create extra `data` that is "invisible" to the user, or if you need to create more complex values, such as nested arrays and objects.
+
+Using the syntax `<!-- q-binding:[dataPropertyName] = [value] -->` we can easily recreate the `data` from the previous examples:
+
+```html
+<div id="app" q-convert-bindings>
+  <!-- q-binding:title = "Hello, World!" -->
+  <!-- q-binding:year = 2018 -->
+  <!-- q-binding:tags[0] = "js" -->
+  <!-- q-binding:tags[1] = "library" -->
+  <!-- q-binding:author.firstName = "Matt" -->
+  <!-- q-binding:author.lastName = "Stow" -->
+  <!-- q-binding:skills[0].name = "JS" -->
+  <!-- q-binding:skills[0].level = 4 -->
+  <!-- q-binding:skills[1].name = "CSS" -->
+  <!-- q-binding:skills[1].level = 5 -->
+</div>
+```
+
+However, we can also create more complex `data` values. The following recreates the above arrays and objects succinctly.
+
+```html
+<div id="app" q-convert-bindings>
+  <!-- q-binding:tags = ["js", "library"] -->
+  <!-- q-binding:author = { "firstName": "Matt", "lastName": "Stow" } -->
+  <!-- q-binding:skills = [{ "name": "JS", "level": 4 }, { "name": "CSS", "level": 5 }] -->
+</div>
+```
+
+*Note: Non-element bindings must be JSON-serializable and written on one line.*
 
 ### Referencing global variables as `data` properties
 
@@ -798,5 +832,5 @@ Hopefully you've recognized that you're now able to render fast, SEO-friendly st
 
 ---
 
-Copyright (c) 2017 [Matt Stow](http://mattstow.com)  
+Copyright (c) 2018 [Matt Stow](http://mattstow.com)  
 Licensed under the MIT license *(see [LICENSE](https://github.com/stowball/quench-vue/blob/master/LICENSE) for details)*
