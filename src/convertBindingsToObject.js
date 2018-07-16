@@ -16,34 +16,37 @@ const convertBindingsToObject = (app) => {
 
   const commentBindings = app.innerHTML.match(/<!--\s*q-binding:\w+\[?(\d+)?\]?(\.\w+)?\s*=\s*.*?\s*-->/g);
   const elementBindings = app.querySelectorAll('[q-binding]');
+  let dataObj = {};
 
-  const dataObj = commentBindings.reduce((obj, binding) => {
-    const [ , name, index, dot, prop, value ] = /(\w+)\[?(\d+)?\]?(\.(\w+))?\s*=\s*(.*?)\s*-->/.exec(binding);
-    const parsedValue = parseString(value);
+  if (commentBindings) {
+    dataObj = commentBindings.reduce((obj, binding) => {
+      const [ , name, index, dot, prop, value ] = /(\w+)\[?(\d+)?\]?(\.(\w+))?\s*=\s*(.*?)\s*-->/.exec(binding);
+      const parsedValue = parseString(value);
 
-    if (index) {
-      obj[name] = obj[name] || [];
+      if (index) {
+        obj[name] = obj[name] || [];
 
-      if (dot) {
-        obj[name][index] = obj[name][index] || {};
+        if (dot) {
+          obj[name][index] = obj[name][index] || {};
 
-        obj[name][index][prop] = parsedValue;
+          obj[name][index][prop] = parsedValue;
+        }
+        else {
+          obj[name][index] = parsedValue;
+        }
+      }
+      else if (dot) {
+        obj[name] = obj[name] || {};
+
+        obj[name][prop] = parsedValue;
       }
       else {
-        obj[name][index] = parsedValue;
+        obj[name] = parsedValue;
       }
-    }
-    else if (dot) {
-      obj[name] = obj[name] || {};
 
-      obj[name][prop] = parsedValue;
-    }
-    else {
-      obj[name] = parsedValue;
-    }
-
-    return obj;
-  }, {});
+      return obj;
+    }, dataObj);
+  }
 
   return _arrayFrom(elementBindings).reduce((obj, binding) => {
     const bindingValue = binding.attributes['q-binding'].value;
