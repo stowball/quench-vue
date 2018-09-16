@@ -450,8 +450,8 @@ Take the following HTML:
 
 ```html
 <div
-  q-component="card"
   class="card"
+  q-component="card"
   v-bind:class="{ 'card--feature': props.isFeatured }"
 >
   <a
@@ -468,8 +468,8 @@ Take the following HTML:
 </div>
 
 <div
-  q-component="card"
   class="card"
+  q-component="card"
   v-bind:class="{ 'card--feature': props.isFeatured }"
 >
   <a
@@ -514,8 +514,8 @@ Let's look at some examples:
 
 ```html
 <div
-  q-component="card"
   class="card"
+  q-component="card"
   v-bind:class="{ 'card--feature': props.isFeatured }"
 >
   <a
@@ -565,7 +565,8 @@ components: {
           <div class="fallback"></div>
         </template>
       ` // Using ES6 template literals, but any string concatenation method works
-    }
+    },
+    template: 'local'
   }
 }
 ```
@@ -574,8 +575,8 @@ and reference it in the pre-rendered component with `<q-component-partial name="
 
 ```html
 <div
-  q-component="card"
   class="card"
+  q-component="card"
   v-bind:class="{ 'card--feature': props.isFeatured }"
 >
   <a
@@ -601,7 +602,7 @@ When the template is compiled, this `<q-component-partial name="image">` will be
 This method allows you to move more complex or repetitive logic into the JavaScript to reduce the size of the pre-rendered HTML.
 
 *Note: Having a `<q-component-partial>` element within your markup could affect your layout. There are 2 solutions to this problem:*
-1. *Add `q-component-partial { display: none; }` to your CSS, which allows clearer syntax highlighting of the partial in the markup; or*
+1. *Add `q-component-partial { display: none; }` to your CSS; or*
 2. *Wrap HTML comments around the tag `<!-- <q-component-partial></q-component-partial> -->`, which reduces the need for extra CSS, but may make the HTML less obvious in your editor.*
 
 #### Define a completely different component
@@ -612,8 +613,8 @@ Here we define 2 components, `card--default` and `card--fallback`, and remove al
 
 ```html
 <div
-  q-component="card--default"
   class="card"
+  q-component="card--default"
   v-bind:class="{ 'card--feature': props.isFeatured }"
 >
   <a
@@ -635,9 +636,7 @@ Here we define 2 components, `card--default` and `card--fallback`, and remove al
   </a>
 </div>
 
-<template
-  q-component="card--fallback"
->
+<template q-component="card--fallback">
   <div
     class="card"
     v-bind:class="{ 'card--feature': props.isFeatured }"
@@ -718,16 +717,20 @@ var appEl = document.getElementById('app');
 var data = createAppData(appEl);
 var components = {
   'card--default': { // Register all possible components for this app
-    props: ['props'] // Define props as you normally would
+    props: ['props'], // Define props as you normally would
+    template: 'local', // Specify that the component's template is "local"
   },
   'card--fallback': {
-    props: ['props']
+    props: ['props'],
+    template: 'local',
   },
   'card--instagram': {
-    props: ['props']
+    props: ['props'],
+    template: 'local',
   },
   'card--twitter': {
-    props: ['props']
+    props: ['props'],
+    template: 'local',
   }
 };
 components = createComponentTemplates(app, components); // Convert and add templates to your components
@@ -741,6 +744,8 @@ var app = new Vue({
 });
 ```
 
+*Note: camelCase component names are converted to kebab-case, so you can use [object shorthand notation](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Object_initializer#Property_definitions) to define your components after `import`ing them*
+
 #### For direct `<script>` include
 
 ```html
@@ -753,16 +758,20 @@ var appEl = document.getElementById('app');
 var data = quenchVue.createAppData(appEl);
 var components = {
   'card--default': { // Register all possible components for this app
-    props: ['props'] // Define props as you normally would
+    props: ['props'], // Define props as you normally would
+    template: 'local', // Specify that the component's template is "local"
   },
   'card--fallback': {
-    props: ['props']
+    props: ['props'],
+    template: 'local',
   },
   'card--instagram': {
-    props: ['props']
+    props: ['props'],
+    template: 'local',
   },
   'card--twitter': {
-    props: ['props']
+    props: ['props'],
+    template: 'local',
   }
 };
 components = quenchVue.createComponentTemplates(app, components); // Convert and add templates to your components

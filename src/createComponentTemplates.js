@@ -4,24 +4,24 @@ const createComponentTemplates = (app, components) => {
   }
 
   Object.keys(components).forEach((key) => {
-    const componentEl = app.querySelector(`[q-component="${key}"]`);
+    const component = components[key];
 
-    if (componentEl) {
-      let template = '';
+    if (component.template === 'local') {
+      const selector = key.replace(/(.+?)([A-Z])/g, '$1-$2').toLowerCase();
+      const componentEl = app.querySelector(`[q-component="${selector}"]`);
 
-      template = componentEl.tagName === 'TEMPLATE' ? componentEl.innerHTML : componentEl.outerHTML;
-      template = template
-        .replace(/(\sv-(text|html).*?>)[\s\S]*?<\//g, '$1</')
-        .replace(/<!--\s*<q-component>\s*-->[\s\S]*?<!--\s*<\/q-component>\s*-->/g, '')
-        .replace(/(?:<!--\s*)?<q-component-partial\s+name=["'](.*?)["']\s*><\/q-component-partial>(\s*-->)?/g, (match, p1) => {
-          if (components[key].partials && components[key].partials[p1]) {
-            return components[key].partials[p1];
-          }
+      if (componentEl) {
+        component.template = (componentEl.tagName === 'TEMPLATE' ? componentEl.innerHTML : componentEl.outerHTML)
+          .replace(/(\sv-(text|html).*?>)[\s\S]*?<\//g, '$1</')
+          .replace(/<!--\s*<q-component>\s*-->[\s\S]*?<!--\s*<\/q-component>\s*-->/g, '')
+          .replace(/(?:<!--\s*)?<q-component-partial\s+name=["'](.*?)["']\s*><\/q-component-partial>(\s*-->)?/g, (match, p1) => {
+            if (component.partials && component.partials[p1]) {
+              return component.partials[p1];
+            }
 
-          return '';
-        });
-
-      components[key].template = template;
+            return '';
+          });
+      }
     }
   });
 
