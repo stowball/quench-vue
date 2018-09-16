@@ -1,6 +1,6 @@
 {
   "name": "quench-vue",
-  "version": "0.7.1",
+  "version": "0.8.0",
   "description": "Simple, client-side hydration of pre-rendered Vue.js apps",
   "main": "lib/index.js",
   "module": "es/index.js",
