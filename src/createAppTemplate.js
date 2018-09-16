@@ -1,5 +1,5 @@
 const createAppTemplate = (app, template) => {
-  const hadClassName = app.attributes.class;
+  const hadClassName = !!app.className;
   const quenchedClassName = `${app.className} quenched`.replace(/\bpre-quench\b/g, '');
 
   let html = app.outerHTML
@@ -11,7 +11,7 @@ const createAppTemplate = (app, template) => {
     .replace(/(?:<!--\s*)?<q-template><\/q-template>(\s*-->)?/, template || '');
 
   if (hadClassName) {
-    html = html.replace(/(class=").*?"/, `$1${quenchedClassName}"`);
+    html = html.replace(/(class=")[\s\S]*?"/, `$1${quenchedClassName}"`);
   }
   else {
     html = html.replace(/(<.*?\s)/, `$1class="${quenchedClassName}"`);
