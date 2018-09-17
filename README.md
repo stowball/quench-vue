@@ -27,7 +27,7 @@ All of Vue's existing features will work as normal when the app is initialised i
 - [Usage](#usage)
 - [Defining the app `data` and `template`](#defining-the-app-data-and-template)
   - [Method 1: Defining the `data` with `[q-data]`](#method-1-defining-the-data-with-q-data)
-    - [Rendering the data with `[v-text]` or `[q-binding]`](#rendering-the-data-with-v-text-or-q-binding)
+    - [Rendering the data with `[v-text]`](#rendering-the-data-with-v-text)
   - [Method 2: Defining the `data` with inline `[q-binding]` bindings](#method-2-defining-the-data-with-inline-q-binding-bindings)
     - [Simple bindings](#simple-bindings)
     - [Array and Object bindings](#array-and-object-bindings)
@@ -123,9 +123,9 @@ This method allows you to easily specify the `data` for the app, including array
 </div>
 ```
 
-#### Rendering the data with `[v-text]` or `[q-binding]`
+#### Rendering the data with `[v-text]`
 
-We obviously duplicate the "data" in the markup, and inform Vue which elements are bound to which `data` properties using a [`v-text`](https://vuejs.org/v2/api/#v-text) or `q-binding` attribute whose value points to a property name, such as:
+We obviously duplicate the "data" in the markup, and inform Vue which elements are bound to which `data` properties using a [`v-text`](https://vuejs.org/v2/api/#v-text) attribute whose value points to a property name, such as:
 
 ```html
 <h1 v-text="title">Hello, World!</h1>
@@ -408,9 +408,11 @@ Typically, this would be on a `<div>` or similar, which sets the `outerHTML` of 
 For instance:
 
 ```html
+<!-- <q> -->
 <div q-component="card">
   <h3>Card</h3>
 </div>
+<!-- </q> -->
 ```
 
 will create a `template` of:
@@ -438,8 +440,8 @@ will create a `template` of:
 ```
 
 *Note:*
-* *Only the first instance of `q-component="NAME"` will be used as the component's `template`, so it's safe to output multiple instances when iterating over an array on the back-end.*
-* *Components defined with `<template>` need to be wrapped in `<!-- <q> --> … <!-- </q> -->` comments to prevent them from being included in the app's template.*
+* *Only the first instance of `q-component="NAME"` will be used as the component's `template`.*
+* *Components need to be wrapped in `<!-- <q> --> … <!-- </q> -->` comments to prevent them from being included in the app's template.*
 * *We opted for a custom, `q-component` syntax (compared with Vue's native [`inline-template`](https://vuejs.org/v2/guide/components.html#Inline-Templates) syntax) for various reasons, but mainly because it allows for greater flexibility in the types of templates that can be defined (such as `<tr>`s with multiple children), and we can supplement with additional features as described below.*
 
 ### Specifying a component's `template`
