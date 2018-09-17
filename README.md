@@ -733,7 +733,7 @@ var components = {
     template: 'local',
   }
 };
-components = createComponentTemplates(app, components); // Convert and add templates to your components
+components = createComponentTemplates(appEl, components); // Convert and add templates to your components
 var template = createAppTemplate(appEl); // createAppTemplate has to be called after createComponentTemplates
 
 var app = new Vue({
@@ -774,7 +774,7 @@ var components = {
     template: 'local',
   }
 };
-components = quenchVue.createComponentTemplates(app, components); // Convert and add templates to your components
+components = quenchVue.createComponentTemplates(appEl, components); // Convert and add templates to your components
 var template = quenchVue.createAppTemplate(appEl); // createAppTemplate has to be called after createComponentTemplates
 
 var app = new Vue({
