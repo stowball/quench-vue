@@ -6,6 +6,10 @@ const createComponentTemplates = (app, components) => {
   Object.keys(components).forEach((key) => {
     const component = components[key];
 
+    if (component.components) {
+      component.components = createComponentTemplates(app, component.components);
+    }
+
     if (component.template === 'local') {
       const selector = key.replace(/(.+?)([A-Z])/g, '$1-$2').toLowerCase();
       const componentEl = app.querySelector(`[q-component="${selector}"]`);
