@@ -58,7 +58,7 @@ All of Vue's existing features will work as normal when the app is initialised i
 
 ## Demo
 
-A complete demo is available here: https://codepen.io/stowball/pen/awwGBB
+A complete demo is available here: https://codesandbox.io/s/quench-vue-demo-foe55
 
 ## Installation
 
