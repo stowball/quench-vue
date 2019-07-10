@@ -1,8 +1,6 @@
 const createAppTemplate = (app, template) => {
-  const hadClassName = !!app.className;
   const quenchedClassName = `${app.className} quenched`.replace(/\bpre-quench\b/g, '');
-
-  let html = app.outerHTML
+  const html = app.outerHTML
     .replace(/<!--\s*<q>\s*-->[\s\S]*?<!--\s*<\/q>\s*-->/g, '')
     .replace(/<!--\s*q-binding:.*?-->/g, '')
     .replace(/\sq-binding=".*?\s+as\s+/g, ' q-binding="')
@@ -10,14 +8,11 @@ const createAppTemplate = (app, template) => {
     .replace(/(\sv-(text|html).*?>)[\s\S]*?<\//g, '$1</')
     .replace(/(?:<!--\s*)?<q-template><\/q-template>(\s*-->)?/, template || '');
 
-  if (hadClassName) {
-    html = html.replace(/(class=")[\s\S]*?"/, `$1${quenchedClassName}"`);
-  }
-  else {
-    html = html.replace(/(<.*?\s)/, `$1class="${quenchedClassName}"`);
+  if (app.hasAttribute('class')) {
+    return html.replace(/(class=")[\s\S]*?"/, `$1${quenchedClassName}"`);
   }
 
-  return html;
+  return html.replace(/(<.*?\s)/, `$1class="${quenchedClassName}"`);
 };
 
 export default createAppTemplate;
