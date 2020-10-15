@@ -14,7 +14,10 @@
     "build": "npm-run-all lint build-web-module remove-umd-default",
     "clean": "nwb clean-module",
     "lint": "eslint src",
-    "remove-umd-default": "node ./tasks/remove-umd-default.js"
+    "remove-umd-default": "node ./tasks/remove-umd-default.js",
+    "test": "nwb test",
+    "test:coverage": "nwb test --coverage",
+    "test:watch": "nwb test --server"
   },
   "dependencies": {},
   "devDependencies": {
