@@ -5,6 +5,7 @@
     "sourceType": "module"
   },
   "env": {
+    "amd": true,
     "browser": true
   },
   "globals": {
