@@ -1,4 +1,4 @@
-import _arrayFrom from './utils/arrayFrom';
+import arrayFrom from './utils/arrayFrom';
 
 const parseString = (str) => {
   try {
@@ -48,7 +48,7 @@ const convertBindingsToObject = (app) => {
     }, dataObj);
   }
 
-  return _arrayFrom(elementBindings).reduce((obj, binding) => {
+  return arrayFrom(elementBindings).reduce((obj, binding) => {
     const bindingValue = binding.attributes['q-binding'].value;
     const parsedValue = parseString(binding.textContent);
 

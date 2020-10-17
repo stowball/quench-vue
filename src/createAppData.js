@@ -1,7 +1,7 @@
 import convertBindingsToObject from './convertBindingsToObject';
 import convertDataToObject from './convertDataToObject';
-import _objectAssign from './utils/objectAssign';
+import objectAssign from './utils/objectAssign';
 
-const createAppData = (app) => _objectAssign({}, convertBindingsToObject(app), convertDataToObject(app));
+const createAppData = (app) => objectAssign({}, convertBindingsToObject(app), convertDataToObject(app));
 
 export default createAppData;

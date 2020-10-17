@@ -1,4 +1,4 @@
-import _objectAssign from './utils/objectAssign';
+import objectAssign from './utils/objectAssign';
 
 const convertDataToObject = (app) => {
   let data;
@@ -35,7 +35,7 @@ const convertDataToObject = (app) => {
     }
   }
 
-  return _objectAssign({}, data, rData);
+  return objectAssign({}, data, rData);
 };
 
 export default convertDataToObject;
