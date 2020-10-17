@@ -21,9 +21,9 @@ const convertDataToObject = (app) => {
         const keyArray = rData[key].split('.');
         const initKeyValue = window[keyArray[0]];
         const keyValue = initKeyValue && keyArray.length > 1 ?
-        // eslint-disable-next-line arrow-body-style
+          // eslint-disable-next-line arrow-body-style
           keyArray.reduce((obj, newKey, index) => {
-            return obj[newKey] || (index === keyArray.length - 1 ? undefined : obj);
+            return obj.hasOwnProperty(newKey) ? obj[newKey] : (index === keyArray.length - 1 ? undefined : obj);
           }, initKeyValue)
           : initKeyValue;
 
