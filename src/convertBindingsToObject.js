@@ -50,6 +50,11 @@ const convertBindingsToObject = (app) => {
 
   return arrayFrom(elementBindings).reduce((obj, binding) => {
     const bindingValue = binding.attributes['q-binding'].value;
+
+    if (!bindingValue) {
+      return obj;
+    }
+
     const parsedValue = parseString(binding.textContent);
 
     if (bindingValue.indexOf(' as ') > 0) {
