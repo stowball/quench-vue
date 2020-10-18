@@ -1,5 +1,5 @@
 import expect from 'expect';
-import arrayFrom from '../../src/utils/arrayFrom';
+import arrayFrom from 'src/utils/arrayFrom';
 
 describe('arrayFrom', () => {
   beforeEach(() => {

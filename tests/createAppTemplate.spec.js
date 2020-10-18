@@ -1,5 +1,5 @@
 import expect from 'expect';
-import createAppTemplate from '../src/createAppTemplate';
+import createAppTemplate from 'src/createAppTemplate';
 
 describe('createAppTemplate', () => {
   it('returns undefined if app isn’t passed', () => {

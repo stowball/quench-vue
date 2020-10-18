@@ -1,5 +1,5 @@
 import expect from 'expect';
-import createAppData from '../src/createAppData';
+import createAppData from 'src/createAppData';
 
 describe('createAppData', () => {
   it('returns an empty object if app isn’t passed', () => {

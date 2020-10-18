@@ -1,5 +1,5 @@
 import expect from 'expect';
-import createComponentTemplates from '../src/createComponentTemplates';
+import createComponentTemplates from 'src/createComponentTemplates';
 
 describe('createComponentTemplates', () => {
   it('returns undefined if app isn’t passed', () => {

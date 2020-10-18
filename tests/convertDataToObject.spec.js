@@ -1,5 +1,5 @@
 import expect from 'expect';
-import convertDataToObject from '../src/convertDataToObject';
+import convertDataToObject from 'src/convertDataToObject';
 
 describe('convertDataToObject', () => {
   describe('q-data', () => {

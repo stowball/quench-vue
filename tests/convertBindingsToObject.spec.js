@@ -1,5 +1,5 @@
 import expect from 'expect';
-import convertBindingsToObject from '../src/convertBindingsToObject';
+import convertBindingsToObject from 'src/convertBindingsToObject';
 
 describe('convertBindingsToObject', () => {
   it('returns undefined when [q-convert-bindings] is absent', () => {

@@ -11,7 +11,7 @@
   ],
   "scripts": {
     "build-web-module": "nwb build-web-module",
-    "build": "npm-run-all lint build-web-module remove-umd-default",
+    "build": "npm-run-all lint test:coverage build-web-module remove-umd-default",
     "clean": "nwb clean-module",
     "lint": "eslint src",
     "remove-umd-default": "node ./tasks/remove-umd-default.js",

@@ -1,5 +1,5 @@
 import expect from 'expect';
-import objectAssign from '../../src/utils/objectAssign';
+import objectAssign from 'src/utils/objectAssign';
 
 describe('objectAssign', () => {
   beforeEach(() => {
