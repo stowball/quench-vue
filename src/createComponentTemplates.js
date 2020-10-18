@@ -1,6 +1,6 @@
 const createComponentTemplates = (app, components) => {
-  if (!components) {
-    return null;
+  if (!app || !components) {
+    return;
   }
 
   Object.keys(components).forEach((key) => {
@@ -16,6 +16,7 @@ const createComponentTemplates = (app, components) => {
 
       if (componentEl) {
         component.template = (componentEl.tagName === 'TEMPLATE' ? componentEl.innerHTML : componentEl.outerHTML)
+          .replace(`q-component="${selector}"`, '')
           .replace(/(\sv-(text|html).*?>)[\s\S]*?<\//g, '$1</')
           .replace(/<!--\s*<q-component>\s*-->[\s\S]*?<!--\s*<\/q-component>\s*-->/g, '')
           .replace(/(?:<!--\s*)?<q-component-partial\s+name=["'](.*?)["']\s*><\/q-component-partial>(\s*-->)?/g, (match, p1) => {

@@ -1,4 +1,8 @@
 const createAppTemplate = (app, template) => {
+  if (!app) {
+    return;
+  }
+
   const quenchedClassName = `${app.className} quenched`.replace(/\bpre-quench\b/g, '');
   const html = app.outerHTML
     .replace(/<!--\s*<q>\s*-->[\s\S]*?<!--\s*<\/q>\s*-->/g, '')

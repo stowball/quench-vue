@@ -2,6 +2,10 @@ import expect from 'expect';
 import createAppTemplate from '../src/createAppTemplate';
 
 describe('createAppTemplate', () => {
+  it('returns undefined if app isn’t passed', () => {
+    expect(createAppTemplate()).toEqual(undefined);
+  });
+
   it('adds the quenched class', () => {
     const app = document.createElement('div');
     app.id = 'a';
