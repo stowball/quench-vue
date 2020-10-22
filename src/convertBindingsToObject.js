@@ -20,25 +20,23 @@ const convertBindingsToObject = (app) => {
 
   if (commentBindings) {
     dataObj = commentBindings.reduce((obj, binding) => {
-      const [ , name, index, dot, prop, value ] = /(\w+)\[?(\d+)?\]?(\.(\w+))?\s*=\s*(.*?)\s*-->/.exec(binding);
+      const [ , name, index, key, value ] = /(\w+)(?:\[(\d+)\])?(?:\.(\w+))?\s*=\s*(.*?)\s*-->/.exec(binding);
       const parsedValue = parseString(value);
 
       if (index) {
         obj[name] = obj[name] || [];
 
-        if (dot) {
+        if (key) {
           obj[name][index] = obj[name][index] || {};
-
-          obj[name][index][prop] = parsedValue;
+          obj[name][index][key] = parsedValue;
         }
         else {
           obj[name][index] = parsedValue;
         }
       }
-      else if (dot) {
+      else if (key) {
         obj[name] = obj[name] || {};
-
-        obj[name][prop] = parsedValue;
+        obj[name][key] = parsedValue;
       }
       else {
         obj[name] = parsedValue;
@@ -58,25 +56,22 @@ const convertBindingsToObject = (app) => {
     const parsedValue = parseString(binding.textContent);
 
     if (bindingValue.indexOf(' as ') > 0) {
-      if (bindingValue.indexOf('[') > 0) {
-        const [ , name, index, dot, prop ] = /(\w+)\[(\d+)\](\.)?(.*)/.exec(bindingValue);
+      const [ , name, index, key ] = /(\w+)(?:\[(\d+)\])?(?:\.(\w+))?\s+as\s+\w+/.exec(bindingValue);
 
+      if (index) {
         obj[name] = obj[name] || [];
 
-        if (dot) {
+        if (key) {
           obj[name][index] = obj[name][index] || {};
-
-          obj[name][index][prop.split(' as ')[0].trim()] = parsedValue;
+          obj[name][index][key] = parsedValue;
         }
         else {
           obj[name][index] = parsedValue;
         }
       }
-      else {
-        const [ , name, prop ] = /(\w+)\.(\w+)\s.*/.exec(bindingValue);
-
+      else if (key) {
         obj[name] = obj[name] || {};
-        obj[name][prop] = parsedValue;
+        obj[name][key] = parsedValue;
       }
     }
     else if (binding.textContent) {

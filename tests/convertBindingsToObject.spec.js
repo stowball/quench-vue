@@ -53,14 +53,6 @@ describe('convertBindingsToObject', () => {
         });
       });
 
-      it('converts an array', () => {
-        app.innerHTML = '<!-- q-binding:foo = ["bar", 1] -->';
-        const result = convertBindingsToObject(app);
-        expect(result).toEqual({
-          foo: ['bar', 1],
-        });
-      });
-
       it('converts an object', () => {
         app.innerHTML = '<!-- q-binding:foo = { "bar": "baz" } -->';
         const result = convertBindingsToObject(app);
