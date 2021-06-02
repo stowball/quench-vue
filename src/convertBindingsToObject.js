@@ -1,10 +1,12 @@
 import _arrayFrom from './utils/arrayFrom';
 
-const parseString = (str) => {
+var parseString = function parseString(str) {
+  // unescape escaped characters
+  var decoded = (new DOMParser()).parseFromString(str, 'text/html').body.firstChild.textContent;
+
   try {
-    return JSON.parse(str);
-  }
-  catch (e) {
+    return JSON.parse(decoded);
+  } catch (e) {
     return str;
   }
 };
