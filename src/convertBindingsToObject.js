@@ -1,8 +1,7 @@
 import _arrayFrom from './utils/arrayFrom';
 
-var parseString = (str) => {
-  // unescape escaped characters
-  var decoded = (new DOMParser()).parseFromString(str, 'text/html').body.firstChild.textContent;
+const parseString = (str) => {
+  const decoded = (new DOMParser()).parseFromString(str, 'text/html').body.firstChild.textContent;
 
   try {
     return JSON.parse(decoded);
