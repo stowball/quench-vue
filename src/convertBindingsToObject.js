@@ -1,7 +1,7 @@
 import _arrayFrom from './utils/arrayFrom';
 
 const parseString = (str) => {
-  const decoded = (new DOMParser()).parseFromString(str, 'text/html').body.firstChild.textContent;
+  const decoded = (new DOMParser()).parseFromString(str, 'text/html').body.textContent;
 
   try {
     return JSON.parse(decoded);
