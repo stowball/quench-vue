@@ -1,8 +1,10 @@
 import _arrayFrom from './utils/arrayFrom';
 
 const parseString = (str) => {
+  const decoded = (new DOMParser()).parseFromString(str, 'text/html').body.textContent;
+
   try {
-    return JSON.parse(str);
+    return JSON.parse(decoded);
   }
   catch (e) {
     return str;
